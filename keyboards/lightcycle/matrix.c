@@ -58,19 +58,13 @@ static uint16_t matrix[MATRIX_ROWS];
 // Debouncing: store for each key the number of scans until it's eligible to
 // change.  When scanning the matrix, ignore any changes in keys that have
 // already changed in the last DEBOUNCE scans.
-//static uint8_t debounce_matrix[MATRIX_ROWS*MATRIX_COLS];
+static uint8_t debounce_matrix[MATRIX_ROWS*MATRIX_COLS];
 
 static uint16_t read_cols(void);
 static void select_row(uint8_t row);
 static void unselect_rows(void);
 
 static uint8_t mcp23018_reset_loop;
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-uint32_t matrix_timer;
-uint32_t matrix_scan_count;
-#endif
-
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -98,28 +92,22 @@ void matrix_init(void)
 {
     mcp23018_status = init_lightcycle();
 
-    //unselect_rows();
+    unselect_rows();
 
-    // initialize matrix state: all keys off
-    /*for (uint8_t i=0; i < MATRIX_COLS; i++)
-    {
+    // initialize matrix state
+    for (uint8_t i=0; i < MATRIX_ROWS; i++)
         matrix[i] = 0;
-        for (uint8_t j=0; j < MATRIX_ROWS; ++j)
-        {
-            debounce_matrix[i * MATRIX_ROWS + j] = 0;
-        }
-    }*/
+
+    // Inintialize Debounce Matrix
+    for (uint8_t i=0; i < MATRIX_ROWS*MATRIX_COLS; i++)
+        debounce_matrix[i] = 0;
 
     matrix_init_quantum();
 }
 
-void matrix_power_up(void) {
+void matrix_power_up(void)
+{
     matrix_init();
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer = timer_read32();
-    matrix_scan_count = 0;
-#endif
 }
 
 // Returns a uint16_t whose bits are set if the corresponding key should be
@@ -127,31 +115,27 @@ void matrix_power_up(void) {
 uint8_t debounce_mask(uint16_t row)
 {
   uint8_t result = 0;
-  /*for (uint16_t j=0; j < MATRIX_COLS; ++j)
+  for (uint8_t i=0; i < MATRIX_ROWS; i++)
   {
-    if (debounce_matrix[col * MATRIX_ROWS + j])
-    {
-      --debounce_matrix[col * MATRIX_ROWS + j];
-    }
+    if (debounce_matrix[row * MATRIX_COLS + i])
+      debounce_matrix[row * MATRIX_COLS + i]--;
     else
-    {
-      result |= (1 << j);
-    }
-  }*/
+      result |= (1 << i);
+  }
   return result;
 }
 
 // Report changed keys in the given row.  Resets the debounce countdowns
 // corresponding to each set bit in 'change' to DEBOUNCE.
-void debounce_report(uint16_t change, uint16_t col)
+void debounce_report(uint16_t change, uint16_t row)
 {
-    /*for (uint8_t i = 0; i < MATRIX_ROWS; ++i)
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++)
     {
         if (change & (1 << i))
         {
-          debounce_matrix[col * MATRIX_ROWS + i] = DEBOUNCE;
+          debounce_matrix[row * MATRIX_COLS + i] = DEBOUNCE;
         }
-    }*/
+    }
 }
 
 uint8_t matrix_scan(void)
@@ -177,15 +161,11 @@ uint8_t matrix_scan(void)
         select_row(i);
         wait_us(30);
         uint16_t col_data = read_cols();
-        col_data = col_data;
-        if(i==0)
-        {
-            print("Row: "); phex(i); print("Column: "); phex16(col_data); print("\n");
-        }
+        if(i==4) {print("Row: "); phex(i); print("Column: "); phex16(col_data); print("\n");}
         //uint16_t mask = debounce_mask(i);
-        //uint16_t rows = (read_rows(i) & mask) | (matrix[i] & ~mask);
-        //debounce_report(rows ^ matrix[i], i);
-        //matrix[i] = rows;
+        //uint16_t cols = (read_cols() & mask) | (matrix[i] & ~mask);
+        //debounce_report(cols ^ matrix[i], i);
+        matrix[i] = col_data;
         unselect_rows();
     }
 

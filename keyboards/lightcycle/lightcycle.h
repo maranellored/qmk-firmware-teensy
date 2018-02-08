@@ -36,24 +36,24 @@ uint8_t init_mcp23018(void);
     k10,k11,k12,k13,k14,k15,            \
     k20,k21,k22,k23,k24,k25,            \
     k30,k31,k32,k33,k34,                \
-                            k44,k43,    \
-                        k40,k41,k42,    \
+                            k44,k45,    \
+                        k41,k42,k43,    \
                                         \
     /* right hand, spatial positions */ \
             k06,k07,k08,k09,k0A,k0B,    \
             k16,k17,k18,k19,k1A,k1B,    \
             k26,k27,k28,k29,k2A,k2B,    \
                 k37,k38,k39,k3A,k3B,    \
-    k4A,k4B,                            \
-    k49,k48,k47 )                       \
+    k46,k47,                            \
+    k48,k49,k4A )                       \
                                         \
    /* matrix positions */               \
    {                                    \
-    {k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B}, \
-    {k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B}, \
-    {k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B}, \
-    {k30, k31, k32, k33, k34, KC_NO, KC_NO, k37, k38, k39, k3A, k3B}, \
-    {k40, k41, k42, k43, k44, KC_NO, KC_NO, k47, k48, k49, k4A, k4B}  \
+    {k00,   k01, k02, k03, k04, k05,    k06, k07, k08, k09, k0A, k0B}, \
+    {k10,   k11, k12, k13, k14, k15,    k16, k17, k18, k19, k1A, k1B}, \
+    {k20,   k21, k22, k23, k24, k25,    k26, k27, k28, k29, k2A, k2B}, \
+    {k30,   k31, k32, k33, k34, KC_NO,  KC_NO, k37, k38, k39, k3A, k3B}, \
+    {KC_NO, k41, k42, k43, k44, k45,    k46, k47, k48, k49, k4A, KC_NO}  \
    }
 
 #define LAYOUT_lightcycle KEYMAP

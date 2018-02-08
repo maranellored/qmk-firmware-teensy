@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_ESC,       KC_QUOT,   KC_COMM,  KC_DOT,   KC_P,    KC_Y,                     
           KC_TAB,       KC_A,      KC_O,     KC_E,     KC_U,    KC_I,                     
           KC_LSFT,      KC_SCLN,   KC_Q,     KC_J,     KC_K,    KC_X,                     
-          KC_APP,       KC_LCTRL,  KC_LALT,  KC_LEFT,  KC_RGHT,                           
+          KC_LCTL,      KC_LGUI,  KC_LALT,  KC_LEFT,  KC_RGHT,                           
                                                                       KC_PGUP,  KC_PGDN,  
                                                              KC_BSPC, KC_DEL,   MO(NUMB), 
                                                                                           
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_UNDS,    KC_7,    KC_8,    KC_9,    KC_QUES,   KC_TRNS,
                             KC_WBAK, KC_WFWD, KC_LCBR, KC_RCBR,  KC_TRNS,
       KC_RALT,  KC_RCTL,
-      KC_MENU,  KC_RSFT,  KC_0
+      KC_APP,  KC_RSFT,  KC_0
 ),
 
 /* Keymap 2: Symbol Layer
