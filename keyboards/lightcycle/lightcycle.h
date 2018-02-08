@@ -25,7 +25,8 @@
 
 extern uint8_t mcp23018_status;
 
-void init_dactyl(void);
+uint8_t init_lightcycle(void);
+void init_teensy(void);
 uint8_t init_mcp23018(void);
 
 #define KEYMAP(                         \
@@ -48,23 +49,12 @@ uint8_t init_mcp23018(void);
                                         \
    /* matrix positions */               \
    {                                    \
-    /* MCP23018 */                      \
-    { k00, k10, k20, k30,   k40},       \
-    { k01, k11, k21, k31,   k41},       \
-    { k02, k12, k22, k32,   k42},       \
-    { k03, k13, k23, k33,   k43},       \
-    { k04, k14, k24, k34,   k44},       \
-    { k05, k15, k25, KC_NO, KC_NO},     \
-    /* Teensy 2.0 */                    \
-    { k06, k16, k26, KC_NO, KC_NO},     \
-    { k07, k17, k27, k37,   k47},       \
-    { k08, k18, k28, k38,   k48},       \
-    { k09, k19, k29, k39,   k49},       \
-    { k0A, k1A, k2A, k3A,   k4A},       \
-    { k0B, k1B, k2B, k3B,   k4B}        \
+    {k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B}, \
+    {k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B}, \
+    {k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B}, \
+    {k30, k31, k32, k33, k34, KC_NO, KC_NO, k37, k38, k39, k3A, k3B}, \
+    {k40, k41, k42, k43, k44, KC_NO, KC_NO, k47, k48, k49, k4A, k4B}  \
    }
-
-
 
 #define LAYOUT_lightcycle KEYMAP
 

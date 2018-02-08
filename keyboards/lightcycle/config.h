@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x1308
 #define DEVICE_VER      0x0002
-#define MANUFACTURER    Adereth/Resfury
+#define MANUFACTURER    ResoluteFury
 #define PRODUCT         Dactyl-Lightcycle
 #define DESCRIPTION     An ortholinear, split, 3D-curved keyboard with thumb clusters.
 
@@ -34,8 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * At this time, "row" in the dactyl's code actually means "column" on the
  * physical keyboard. It's confusing. I'm sorry. Blame Jack Humbert :P
  */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 5
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 12
+#define DIODE_DIRECTION COL2ROW
 
 #define MOUSEKEY_INTERVAL     20
 #define MOUSEKEY_DELAY        0
