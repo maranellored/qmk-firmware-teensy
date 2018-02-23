@@ -58,6 +58,7 @@ static uint16_t matrix[MATRIX_ROWS];
 // Debouncing: store for each key the number of scans until it's eligible to
 // change.  When scanning the matrix, ignore any changes in keys that have
 // already changed in the last DEBOUNCE scans.
+// keys are stored as row0/col0, row0/col1, row0/col2, ...
 static uint8_t debounce_matrix[MATRIX_ROWS*MATRIX_COLS];
 
 static uint16_t read_cols(void);
@@ -110,18 +111,21 @@ void matrix_power_up(void)
     matrix_init();
 }
 
-// Returns a uint16_t whose bits are set if the corresponding key should be
-// eligible to change in this scan.
-uint8_t debounce_mask(uint16_t row)
+// Returns a uint16_t whose bits are set if the corresponding key should be eligible to change in this scan.
+uint16_t debounce_mask(uint8_t row)
 {
-  uint8_t result = 0;
-  for (uint8_t i=0; i < MATRIX_ROWS; i++)
+  uint16_t result = 0;
+  uint8_t start = row * MATRIX_COLS;
+  uint8_t stop = start + MATRIX_COLS;
+
+  for (uint16_t i = start; i < stop; i++)
   {
-    if (debounce_matrix[row * MATRIX_COLS + i])
-      debounce_matrix[row * MATRIX_COLS + i]--;
+    if (debounce_matrix[i] > 0)
+      debounce_matrix[i]--;
     else
-      result |= (1 << i);
+      result |= (1 << (i-start));
   }
+
   return result;
 }
 
@@ -129,12 +133,13 @@ uint8_t debounce_mask(uint16_t row)
 // corresponding to each set bit in 'change' to DEBOUNCE.
 void debounce_report(uint16_t change, uint16_t row)
 {
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++)
+    uint8_t start = row * MATRIX_COLS;
+    uint8_t stop = start + MATRIX_COLS;
+    
+    for (uint8_t i = start; i < stop; i++)
     {
-        if (change & (1 << i))
-        {
-          debounce_matrix[row * MATRIX_COLS + i] = DEBOUNCE;
-        }
+    	if(change & (1 << (i - start)))
+        	debounce_matrix[i] = DEBOUNCE;
     }
 }
 
@@ -161,10 +166,9 @@ uint8_t matrix_scan(void)
         select_row(i);
         wait_us(30);
         uint16_t col_data = read_cols();
-        if(i==4) {print("Row: "); phex(i); print("Column: "); phex16(col_data); print("\n");}
-        //uint16_t mask = debounce_mask(i);
-        //uint16_t cols = (read_cols() & mask) | (matrix[i] & ~mask);
-        //debounce_report(cols ^ matrix[i], i);
+        uint16_t mask = debounce_mask(i);
+        col_data = (col_data & mask) | (matrix[i] & ~mask);
+        debounce_report(col_data ^ matrix[i], i);
         matrix[i] = col_data;
         unselect_rows();
     }
