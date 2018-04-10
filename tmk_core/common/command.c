@@ -176,15 +176,15 @@ static void command_common_help(void)
 static void print_version(void)
 {
 	// print version & information
-    print("\n\t- Version -\n");
-    print("DESC: " STR(DESCRIPTION) "\n");
-    print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
-          "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
-          "VER: " STR(DEVICE_VER) "\n");
-    print("BUILD: " STR(QMK_VERSION) " (" __TIME__ " " __DATE__ ")\n");
+    //print("\n\t- Version -\n");
+    //print("DESC: " + STR(DESCRIPTION) + "\n");
+    /*print("VID: " + STR(VENDOR_ID) + "(" + STR(MANUFACTURER) + ") "
+          "PID: " + STR(PRODUCT_ID) + "(" STR(PRODUCT) ") "
+          "VER: " + STR(DEVICE_VER) + "\n");
+    print("BUILD: " + STR(QMK_VERSION) + " (" __TIME__ " " __DATE__ ")\n"); */
 
     /* build options */
-    print("OPTIONS:"
+    /*print("OPTIONS:"
 
 #ifdef PROTOCOL_PJRC
 	    " PJRC"
@@ -224,7 +224,7 @@ static void print_version(void)
           " AVR-LIBC: " __AVR_LIBC_VERSION_STRING__
           " AVR_ARCH: avr" STR(__AVR_ARCH__)
 #endif
-		  "\n");
+		  "\n");*/
 
 	return;
 }
