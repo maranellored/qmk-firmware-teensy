@@ -7,6 +7,7 @@
 #define BASE 0 // default layer
 #define NUMB 1 // numbers
 #define SYMB 2 // symbols
+#define ADMIN 3 // admin
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // ensure these codes start after the highest keycode defined in Quantum
@@ -39,20 +40,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE] = LAYOUT_lightcycle(  // layer 0 : default
         // left hand
-          KC_ESC,       KC_Q,      KC_W,     KC_E,     KC_R,    KC_T,                     
-          KC_TAB,       KC_A,      KC_S,     KC_D,     KC_F,    KC_G,                     
-          KC_LSFT,      KC_Z,      KC_X,     KC_C,     KC_V,    KC_B,                     
-          KC_LCTL,      KC_LGUI,   KC_LALT,  KC_LEFT,  KC_RGHT,                           
-                                                                        KC_ENT,   KC_PGUP,  
-                                                               KC_BSPC, MO(NUMB), KC_PGDN,
+          KC_ESC,       KC_Q,      KC_W,     KC_E,     KC_R,    KC_T,
+          KC_TAB,       KC_A,      KC_S,     KC_D,     KC_F,    KC_G,
+          KC_LBRC,      KC_Z,      KC_X,     KC_C,     KC_V,    KC_B,
+          KC_LCTL,      KC_LGUI,   KC_LALT,  KC_LEFT,  KC_RGHT,
+                                                                          KC_ENT,   TT(NUMB),
+                                                                KC_BSPC,  KC_TRNS,  KC_LSFT,
                                                                                           
         // right hand                                                                     
-                            KC_Y,   KC_U,     KC_I,     KC_O,     KC_P,        KC_SLSH,          
-                            KC_H,   KC_J,     KC_K,     KC_L,     KC_SCLN,     KC_MINS,          
-                            KC_N,   KC_M,     KC_W,     KC_V,     KC_Z,        KC_RSFT,          
-                                    KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,     KC_RALT,          
-        KC_HOME,  KC_DEL,                                                                 
-        KC_END,   MO(SYMB), KC_SPC                                                          
+                            KC_Y,   KC_U,     KC_I,     KC_O,     KC_P,        KC_EQL,
+                            KC_H,   KC_J,     KC_K,     KC_L,     KC_SCLN,     KC_ENT,
+                            KC_N,   KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,     KC_RBRC,
+                                    KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,     KC_RALT,
+        MO(SYMB),  KC_DEL,
+        KC_RSFT,   KC_RGUI, KC_SPC 
     ),
 
 /* Keymap 1: Number Layer
@@ -64,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+---------|                    |------+------+------+------+------+------|
  * |      |  F9  |  F10 |  F11 |  F12 |  Find   |                    |      |   1  |   2  |   3  |   *  |      |
  * |------+------+------+------+------+---------'                    `------+------+------+------+------+------|
- * |RESET |      |      | BACK | FWD  |                                     | BACK |  FWD |      |  /   |      |
+ * |MO(ADMIN)|   |      | BACK | FWD  |                                     |   0  |   0  |   .  |  /   |RESET |
  * `----------------------------------'                                     `----------------------------------'
  *                                      ,-------------.  ,-------------.
  *                                      |      |      |  |      | RCtrl|
@@ -79,19 +80,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Numbers
 [NUMB] = LAYOUT_lightcycle(
        // left hand
-          VRSN,    KC_F1,   KC_F2,    KC_F3,    KC_F4,    RALT(KC_TAB),
-          KC_TRNS, KC_F5,   KC_F6,    KC_F7,    KC_F8,    RCTL(KC_S),
-          KC_TRNS, KC_F9,   KC_F10,   KC_F11,   KC_F12,   RCTL(KC_F),
-          RESET,   KC_TRNS, KC_TRNS,  KC_WBAK,  KC_WFWD,
+          VRSN,        KC_F1,   KC_F2,    KC_F3,    KC_F4,    RALT(KC_TAB),
+          KC_TRNS,     KC_F5,   KC_F6,    KC_F7,    KC_F8,    RCTL(KC_S),
+          KC_TRNS,     KC_F9,   KC_F10,   KC_F11,   KC_F12,   RCTL(KC_F),
+          MO(ADMIN),   KC_TRNS, KC_TRNS,  KC_WBAK,  KC_WFWD,
                                                          KC_TRNS,  KC_TRNS,
                                                KC_TRNS,  KC_TRNS,  KC_TRNS,
        // right hand
-                KC_CALC,        KC_7,    KC_8,    KC_9,    KC_MINS,   KC_TRNS,
-                RCTL(KC_BSLS),  KC_4,    KC_5,    KC_6,    KC_PLUS,   KC_TRNS,
+                KC_CALC,        KC_7,    KC_8,    KC_9,    KC_MINS,   KC_QUOT,
+                RCTL(KC_BSLS),  KC_4,    KC_5,    KC_6,    KC_PLUS,   KC_GRV,
                 KC_TRNS,        KC_1,    KC_2,    KC_3,    KC_ASTR,   KC_TRNS,
-                                KC_WBAK, KC_WFWD, KC_DOT,  KC_SLSH,   KC_TRNS,
+                                KC_0,    KC_0,    KC_DOT,  KC_SLSH,   KC_TRNS,
       KC_RALT,  KC_RCTL,
-      KC_APP,  KC_RSFT,  KC_0
+      KC_APP,  KC_RGUI,  KC_0
 ),
 
 /* Keymap 2: Symbol Layer
@@ -133,6 +134,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,  KC_TRNS,  KC_TRNS
 ),
 
+// Admin Layer
+[ADMIN] = LAYOUT_lightcycle(
+       // left hand
+          KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+          KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+          KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+          KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,
+                                                         KC_TRNS,    KC_TRNS,
+                                             KC_TRNS,    KC_TRNS,    KC_TRNS,
+       // right hand
+                KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   RESET,
+                KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,
+                KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,
+                           KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,
+      KC_TRNS,  KC_TRNS,
+      KC_TRNS,   KC_TRNS,   KC_TRNS
+),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
