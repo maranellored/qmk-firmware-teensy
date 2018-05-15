@@ -44,16 +44,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_TAB,       KC_A,      KC_S,     KC_D,     KC_F,    KC_G,
           KC_LBRC,      KC_Z,      KC_X,     KC_C,     KC_V,    KC_B,
           KC_LCTL,      KC_LGUI,   KC_LALT,  KC_LEFT,  KC_RGHT,
-                                                                          KC_ENT,   TT(NUMB),
-                                                                KC_BSPC,  KC_TRNS,  KC_LSFT,
+                                                                          KC_LCTL, KC_RGUI,
+                                                                KC_BSPC,  KC_LSFT, KC_LGUI,
                                                                                           
         // right hand                                                                     
                             KC_Y,   KC_U,     KC_I,     KC_O,     KC_P,        KC_EQL,
-                            KC_H,   KC_J,     KC_K,     KC_L,     KC_SCLN,     KC_ENT,
+                            KC_H,   KC_J,     KC_K,     KC_L,     KC_SCLN,     KC_QUOT,
                             KC_N,   KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,     KC_RBRC,
-                                    KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,     KC_RALT,
+                                    KC_UP,    KC_DOWN,  KC_MINS,  KC_BSLS,     KC_RALT,
         MO(SYMB),  KC_DEL,
-        KC_ENT,    KC_RGUI, KC_SPC 
+        KC_ENT,    MO(NUMB), KC_SPC 
     ),
 
 /* Keymap 1: Number Layer
@@ -80,27 +80,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Numbers
 [NUMB] = LAYOUT_lightcycle(
        // left hand
-          VRSN,        KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F12,
-          KC_TRNS,     KC_F5,   KC_F6,    KC_F7,    KC_F8,    RCTL(KC_S),
-          KC_TRNS,     KC_F9,   KC_F10,   KC_F11,   KC_F12,   RCTL(KC_F),
+          VRSN,        KC_F1,   KC_AMPR,    KC_ASTR,    KC_LPRN,    KC_F12,
+          KC_TRNS,     KC_UNDS,   KC_DLR,    KC_PERC,    KC_CIRC,    KC_RPRN,
+          KC_TRNS,     KC_EXLM,   KC_EXLM,   KC_AT,   KC_HASH,   RCTL(KC_F),
           MO(ADMIN),   KC_TRNS, KC_TRNS,  KC_WBAK,  KC_WFWD,
                                                          KC_TRNS,  KC_TRNS,
                                                KC_TRNS,  KC_TRNS,  KC_TRNS,
        // right hand
                 KC_CALC,        KC_7,    KC_8,    KC_9,    KC_MINS,   KC_QUOT,
                 RCTL(KC_BSLS),  KC_4,    KC_5,    KC_6,    KC_PLUS,   KC_GRV,
-                KC_TRNS,        KC_1,    KC_2,    KC_3,    KC_ASTR,   KC_TRNS,
+                KC_TRNS,        KC_1,    KC_2,    KC_3,    KC_ASTR,   KC_BSLS,
                                 KC_0,    KC_0,    KC_DOT,  KC_SLSH,   KC_TRNS,
       KC_RALT,  KC_RCTL,
-      KC_APP,  KC_RGUI,  KC_0
+      KC_RGUI,  KC_RSFT,  KC_0
 ),
 
 /* Keymap 2: Symbol Layer
  *
  * ,-------------------------------------------.                    ,-----------------------------------------.
- * |      |   !  |  @   |  #   |  $   | Alt+F4 |                    | Cut  |      |      |      |      |      |
+ * |      |   !  |  Up  |  #   |  $   | Alt+F4 |                    | Cut  |      |   !  |  @   |  #   |      |
  * |------+------+------+------+------+--------|                    |------+------+------+------+------+------|
- * |   \  |  %   |  ^   |  &   |  *   | Insert |                    | Copy |      |      |      |      |      |
+ * |   \  | Left | Down |Right |  *   | Insert |                    | Copy |      |   &  |  ^   |  %   |      |
  * |------+------+------+------+------+--------|                    |------+------+------+------+------+------|
  * |      |  (   |  )   |  -   |  =   | Lock   |                    | Paste|      |      |      |      |      |
  * |------------+------+------+------+--------+'                    `------+------+------+------+------+------|
@@ -119,8 +119,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // SYMBOLS
 [SYMB] = LAYOUT_lightcycle(
        // left hand
-          KC_TRNS,   KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,  RALT(KC_F4),
-          KC_BSLS,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR, KC_INS,
+          KC_TRNS,   KC_EXLM,  KC_AT,    KC_UP,  KC_DLR,  RALT(KC_F4),
+          KC_BSLS,   KC_ASTR,  KC_LEFT,  KC_DOWN, KC_RIGHT, KC_INS,
           KC_TRNS,   KC_LPRN,  KC_RPRN,  KC_MINS,  KC_EQL,  RGUI(KC_L),
           KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_GRV,   KC_PIPE,
                                                          KC_PAUSE, RALT(KC_PSCR),
